@@ -816,3 +816,37 @@ while(expression) {
 
 ### 3.6.4 for语句
 
+for语句也是前测试循环语句，但它具有在执行循环之前初始化变量和定义循环后要执行的代码的能力。
+
+```
+for(initialization;expression;post-loop-expression){
+    statement
+}
+```
+
+
+由于ECMAScript不存在块级作用域，因此在循环内部定义的变量也可以在外部访问到。  
+for语句存在极大的灵活性，因此它也是ECMAScript中最常用的一个语句。  
+
+### 3.6.5 for-in语句  
+
+for-in语句是一种精准迭代语句，可以用来枚举对象的属性。
+
+```
+for(property in expression){
+    statement
+}
+```
+如果表示要迭代的对象的变量值为null或undefined，for-in语句会抛出错误。ECMAScript5更正了这一行为：对这种情况不再抛出错误，而只是不执行循环体。为了保证最大限度的兼容性，建议在使用for-in循环之前，先检测确认该对象的值是不是null或undefined。  
+
+### 3.6.6 label语句  
+
+使用label语句可以在代码中添加标签，以便将来使用。
+
+```
+label: statement
+```
+
+加标签的语句一般都要与for语句等循环语句配合使用。  
+
+### 3.6.7  break和continue语句
