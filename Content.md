@@ -849,4 +849,85 @@ label: statement
 
 加标签的语句一般都要与for语句等循环语句配合使用。  
 
-### 3.6.7  break和continue语句
+### 3.6.7  break和continue语句  
+
+break和continue语句用于在循环中精确地控制代码的执行。break语句会立即退出循环，强制继续执行循环后面的语句。而continue语句虽然也是立即退出循环，但推出循环后会从循环的顶部继续执行。
+
+break和continue语句都可以与label语句联合使用，从而返回代码中特定的位置。这种联合使用的情况多发生在循环嵌套的情况下：  
+
+```
+var num = 0;
+outermost:
+for(var i=0; i<10;i++){
+    for(var j=0;j<10;j++){
+        if(i==5&&j==5){
+            break outermost;//continue outermost;
+        }
+    num++
+    }
+}
+alert(num);
+```
+
+在使用break的时候返回的num是55；使用continue的时候返回的num是95。
+
+### 3.6.8 with语句  
+
+with语句的作用是将代码的作用域设置到一个特定的对象中。
+`with (expression) statment`  
+定义with语句的主要目的是为了简化多次编写同一个对象的工作，如下面的例子：
+```
+var qs = location.search.substring();
+var hostName = location.hostname;
+var url = location.href;
+//上面的代码可以转换为下面
+with(location){
+    var qs = search.substring();
+    var hsotName = hostname;
+    var url = href;
+}
+```
+在下面的例子中，使用with语句关联的location对象。这意味着在with语句的代码块内部，每个变量首先被认为是一个局部变量，而如果在局部环境中找不到该变量的定义，就会查询location对象的是否有同名的属性。如果发现的同名属性，则以location对象属性的值作为变量的值。  
+严格模式下不允许使用with语句，否则将视为语法错误。  
+
+### 3.6.9 switch语句  
+
+switch语句与if语句的关系最为密切，而且也是在其他语言中普遍使用的一种流控制语句。
+```
+switch(expression){
+    case value: statement
+        break;
+    case value: statement
+        break;
+    case value: statement
+        break;
+    default: statement
+}
+```
+
+在ECMAScript中，可以在switch语句中使用任何数据类型，无论是字符串还是对象都没有问题。其次，每个case的值不一定是常量，可以是变量，甚至是表达式。
+switch语句在比较直时使用的是==全等操作符==，因此不会发生类型转换。  
+
+## 3.7 函数  
+
+ECMAScript中函数使用function关键字来声明，后跟一组参数以及函数体。
+```
+funcition functionName(agr0,arg1,...agrN){
+    statements
+}
+```
+
+ECMAScript中的函数在定义时不必制定是否返回值。实际上，任何函数在任何时候都可以通过return语句后跟要返回的值来实现返回值。函数在执行完return语句后停止并立即退出。  
+
+在严格模式下，对函数有一些限制：
+
+- 不能把函数命名为eval或agruments；
+- 不能把参数命名为eval或agruments；
+- 不能出现两个命名参数同名的情况。
+
+如果发生以上情况，就会导致语法错误。  
+
+### 3.7.1 理解参数  
+
+
+
