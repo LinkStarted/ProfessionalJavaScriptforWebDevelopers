@@ -929,5 +929,57 @@ ECMAScript中的函数在定义时不必制定是否返回值。实际上，任�
 
 ### 3.7.1 理解参数  
 
+ECMAScript函数不介意传递进来多少个参数，也不在乎传进来参数是什么类型。也就是说，即便你定义的函数只接收2个参数，在调用之歌函数时也未必一定要传递两个参数，可以传递一个，三个甚至不传递参数，而解析器永远不会报错。之所以会这样，原因是ECMAScript中的参数在内部是用一个数组来表示。函数接收到的始终都是这个数组，而不关心数组中包含哪些参数。实际上，在函数体内可以通过arguments对象来访问这个参数数组，从而获取传递给函数的每一个参数。 
+其实，agruments对象只是与数组类似，因为可以使用方括号语法访问它的每一个元素。  
 
+```
+function sayHi(){
+    alert("Hello" + argument[0] + argument[1]);
+}
+```
+上面的例子说明ECMAScript函数的一个重要特点： 命名的参数只提供便利，但不是必须的。  
+
+通过访问arguments对象的length属性可以获知有多少个参数传递给了函数。  
+
+```
+function doAdd(){
+    if(arguments.length == 1){
+        alert(argument[0] + 10);
+    }else if(arguments.length == 2){
+        alert(argument[0] + argument[1]);
+    }
+}
+doAdd(10);  //20
+doAdd(20,30);  //50
+```
+
+开发人员可以利用函数可以接收任意个参数并分别实现不同功能的特点，来实现类似重载的方法。  
+另一个与参数相关的重要方面，就是arguments对象可以与命名参数一起使用：
+```
+function doAdd(num1,num2){
+    if(arguments.length == 1){
+        alert(num1 + 10);
+    }else if(arguments.length == 2){
+        alert(argument[0] + num2);
+    }
+}
+```
+
+关于arguments的行为，还有一点比较有意思，那就是它的值永远与对应命名参数的值保持同步。
+```
+funtion doAdd(num1,num2){
+    arguments[1] = 10;
+    alert(agruments[0] + num2);
+}
+```
+每次重写这个doAdd()函数都会重写第二个参数，将第二个参数的值修改为10。因为arguments对象中的值会自动反映到对应的命名参数，所以修改arguments[1]，也就修改了num2，结果它们的值都变成10。不过，这并不是说读取这两个值会访问相同的内存空间；它们的内存空间是独立的。但值会同步。另外还要记住，如果只传入了一个参数，那么arguments[1]设置的值不会反应到命名函数中，这是因为agruments对象的长度是由传入的参数个数决定的，不是由定义函数时的命名参数分个数决定。  
+关于参数还要记住最后一天：没有传递值的命名参数将自动被赋予undefined值。这就整定义了变量但又没有初始化一样。  
+严格模式对如何使用arguments对象做出了一些限制。
+
+- 首先，像前面的例子那样的赋值会变得无效，也就是说，即使把arguments[1]设置为10，num2的值仍然是undefined。
+- 其次，重写agruments的值为导致语法错误（代码将不会执行）。
+
+ECMAScript中的所有参数传递都值，不可能通过引用传递参数。  
+
+### 3.7.2 没有重载  
 
