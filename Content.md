@@ -1039,4 +1039,4 @@ var num1 = 5;
 var num2 = num1;
 ```
 如图展示复制基本类型值得过程  
-
+![Copy1](https://github.com/LinkStarted/ProfessionalJavaScriptforWebDevelopers/blob/master/Copy1.JPG)
