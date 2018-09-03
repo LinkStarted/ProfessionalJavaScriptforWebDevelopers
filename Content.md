@@ -1038,5 +1038,22 @@ alert(name.age);  // undefined
 var num1 = 5;
 var num2 = num1;
 ```
-如图展示复制基本类型值得过程  
-![Copy1](https://github.com/LinkStarted/ProfessionalJavaScriptforWebDevelopers/blob/master/Copy1.JPG)
+如图展示复制基本类型值的过程  
+![Copy1](https://github.com/LinkStarted/ProfessionalJavaScriptforWebDevelopers/blob/master/Copy1.JPG)  
+在此，num1中保存的值是5。当使用num1的值来初始化num2时，num2中也保存了值5.但num2中的5与num1中的5完全独立，该值只是num1中的5的一个副本。此后，这两个变量可以参与任何操作而不会相互影响。  
+
+当从一个变量向另一个变量复制引用类型的值是，同样也会将存储在变量对象中的值复制一份放到为新变量分配的空间中。不同的是，这个值得副本实际上是一个指针，而这个指针指向存储在堆中的一个对象。复制操作结束后，两个变量实际上将引用同一个对象。
+```
+var obj1 = new Object();
+var obj2= obj1;
+obj1.name = "aaa";
+alert(obj2.name);  // "aaa"
+```
+如图所示保存引用类型值得过程  
+![Copy2](https://github.com/LinkStarted/ProfessionalJavaScriptforWebDevelopers/blob/master/Copy2.JPG)   
+
+首先，变量obj1保存了一个对象的新实例。然后这个值被复制到了obj2中；换句话说，obj1和obj2都指向同一个对象。这样，当为obj1添加name属性后，可以通过obj2来访问这个属性，因为这两个变量引用的都是同一个对象。
+
+### 4.1.3 传递参数  
+
+==ECMAScript中所有函数的参数都是按值传递==  
